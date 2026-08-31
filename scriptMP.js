@@ -626,7 +626,7 @@ function renderPersonControls() {
     button.setAttribute('aria-label', `人物 ${index + 1} の吹き出しを表示`);
     button.addEventListener('click', () => {
       selectedPersonSlide = null;
-      selectedPersonDetailSrc = `assets/person-details/スライド${target.detailSlide}.PNG?v=selected-face-widen-20260831`;
+      selectedPersonDetailSrc = `assets/person-details/スライド${target.detailSlide}.PNG?v=tanaka-face-widen-20260831`;
       renderPersonControls();
       renderPhotoFrameEditor();
     });
