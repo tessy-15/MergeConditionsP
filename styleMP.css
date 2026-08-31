@@ -202,8 +202,10 @@ button {
 
 .cover-quit-button {
   position: absolute;
-  right: 3.8%;
-  bottom: 6.8%;
+  left: 41.8%;
+  top: 70.9%;
+  right: auto;
+  bottom: auto;
   min-width: 12.5%;
   height: 7.0%;
   border: 2px solid #111111;
@@ -380,6 +382,7 @@ button {
 .html-question-title {
   font-size: clamp(18px, 2.05vw, 30px);
   line-height: 1.35;
+  white-space: pre-line;
 }
 
 .html-question-instruction {
@@ -939,6 +942,24 @@ button {
 .inline-input:focus {
   box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.25);
   background: white;
+}
+
+.inline-input-unanswered {
+  border-color: #dc2626;
+  box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.22);
+}
+
+.input-validation-message {
+  position: absolute;
+  right: 12.5%;
+  bottom: 7.5%;
+  color: #dc2626;
+  font-family: "Yu Gothic", "Yu Gothic UI", sans-serif;
+  font-size: clamp(14px, 1.65vw, 24px);
+  font-weight: 700;
+  line-height: 1.35;
+  white-space: nowrap;
+  pointer-events: none;
 }
 
 .gender-input {

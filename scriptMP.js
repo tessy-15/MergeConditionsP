@@ -25,6 +25,8 @@ const coverQuitButton = document.getElementById('coverQuitButton');
 const backOverlay = document.getElementById('backOverlay');
 const backButton = document.getElementById('backButton');
 const inputOverlay = document.getElementById('inputOverlay');
+const genderInput = document.getElementById('genderInput');
+const ageInput = document.getElementById('ageInput');
 const slide33NextButton = document.getElementById('slide33NextButton');
 const finishOverlay = document.getElementById('finishOverlay');
 const finishButton = document.getElementById('finishButton');
@@ -515,11 +517,45 @@ function hideValidationWarning() {
   questionPageOverlay.querySelectorAll('.html-scale-row-unanswered').forEach((row) => {
     row.classList.remove('html-scale-row-unanswered');
   });
+  inputOverlay.querySelectorAll('.inline-input-unanswered').forEach((input) => {
+    input.classList.remove('inline-input-unanswered');
+  });
+  const inputMessage = inputOverlay.querySelector('.input-validation-message');
+  if (inputMessage) {
+    inputMessage.remove();
+  }
   const message = questionPageOverlay.querySelector('.html-validation-message');
   if (message) {
     message.classList.add('hidden');
   }
   pendingWarningSlide = null;
+}
+
+function getUnansweredInputFields() {
+  if (getCurrentSlideNumber() !== 33) {
+    return [];
+  }
+
+  return [genderInput, ageInput].filter((input) => input.value.trim() === '');
+}
+
+function renderInputValidationWarning(unansweredFields) {
+  inputOverlay.querySelectorAll('.inline-input-unanswered').forEach((input) => {
+    input.classList.remove('inline-input-unanswered');
+  });
+
+  unansweredFields.forEach((input) => {
+    input.classList.add('inline-input-unanswered');
+  });
+
+  let message = inputOverlay.querySelector('.input-validation-message');
+  if (!message) {
+    message = document.createElement('div');
+    message.className = 'input-validation-message';
+    inputOverlay.append(message);
+  }
+
+  message.textContent = '赤枠の項目はまだ回答されていませんが、先へ進んでもよろしいでしょうか？';
 }
 
 function renderValidationWarning(unansweredRows) {
@@ -577,6 +613,26 @@ function handleAdvanceRequest() {
 
   if (slideNumber === 34) {
     finishSite();
+    return;
+  }
+
+  if (slideNumber === 33) {
+    const unansweredFields = getUnansweredInputFields();
+
+    if (unansweredFields.length === 0) {
+      hideValidationWarning();
+      showNext();
+      return;
+    }
+
+    if (pendingWarningSlide === slideNumber) {
+      hideValidationWarning();
+      showNext();
+      return;
+    }
+
+    pendingWarningSlide = slideNumber;
+    renderInputValidationWarning(unansweredFields);
     return;
   }
 
@@ -697,10 +753,17 @@ function getEditableValue(slideNumber, key, fallback) {
   return savedValue;
 }
 
+function formatQuestionPageText(slideNumber, key, value) {
+  if (key === 'title' && (slideNumber === 9 || slideNumber === 30)) {
+    return value.replace(/。\s*問/, '。\n問');
+  }
+  return value;
+}
+
 function makeEditableText(slideNumber, key, className, fallback) {
   const element = document.createElement('div');
   element.className = className;
-  element.textContent = getEditableValue(slideNumber, key, fallback);
+  element.textContent = formatQuestionPageText(slideNumber, key, getEditableValue(slideNumber, key, fallback));
   return element;
 }
 
@@ -1064,6 +1127,14 @@ slide33NextButton.addEventListener('click', (event) => {
   event.preventDefault();
   event.stopPropagation();
   handleAdvanceRequest();
+});
+
+[genderInput, ageInput].forEach((input) => {
+  input.addEventListener('input', () => {
+    if (input.value.trim() !== '') {
+      input.classList.remove('inline-input-unanswered');
+    }
+  });
 });
 
 coverNextButton.addEventListener('click', (event) => {
