@@ -97,6 +97,25 @@ button {
   background: #020617;
 }
 
+.slide-area-loading {
+  pointer-events: none;
+}
+
+.slide-area-loading .slide-image,
+.slide-area-loading .person-overlay,
+.slide-area-loading .quality-overlay,
+.slide-area-loading .question-page-overlay,
+.slide-area-loading .photo-frame-overlay,
+.slide-area-loading .scale-table-overlay,
+.slide-area-loading .validation-overlay,
+.slide-area-loading .input-overlay,
+.slide-area-loading .radio-overlay,
+.slide-area-loading .cover-overlay,
+.slide-area-loading .back-overlay,
+.slide-area-loading .finish-overlay {
+  opacity: 0;
+}
+
 .person-overlay,
 .quality-overlay,
 .question-page-overlay,

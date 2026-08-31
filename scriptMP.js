@@ -34,6 +34,7 @@ const scaleAnswers = {};
 let selectedPersonSlide = null;
 let selectedPersonDetailSrc = null;
 let pendingWarningSlide = null;
+let slideRenderToken = 0;
 
 function getCurrentSlideNumber() {
   return activeSlideNumbers[currentIndex];
@@ -919,8 +920,54 @@ function renderScaleControls() {
   });
 }
 
+function renderSlideLayers(slideNumber) {
+  counter.textContent = `${currentIndex + 1} / ${slideFiles.length}`;
+  progressBar.style.width = `${((currentIndex + 1) / slideFiles.length) * 100}%`;
+  coverOverlay.classList.toggle('hidden', slideNumber !== 0);
+  inputOverlay.classList.toggle('hidden', slideNumber !== 33);
+  backOverlay.classList.toggle('hidden', slideNumber !== 9);
+  finishOverlay.classList.toggle('hidden', slideNumber !== 34);
+  renderPersonControls();
+  renderQuestionPage();
+  renderPhotoFrameEditor();
+  renderSlideTextMasks();
+  scaleTableOverlay.replaceChildren();
+  scaleTableOverlay.classList.add('hidden');
+  renderScaleControls();
+  hideValidationWarning();
+  updateOverlayMetrics();
+}
+
 function updateSlide() {
   const slideNumber = getCurrentSlideNumber();
+  const renderToken = ++slideRenderToken;
+  let didComplete = false;
+
+  const completeRender = () => {
+    if (didComplete || renderToken !== slideRenderToken) {
+      return;
+    }
+
+    didComplete = true;
+    renderSlideLayers(slideNumber);
+    requestAnimationFrame(() => {
+      if (renderToken === slideRenderToken) {
+        slideArea.classList.remove('slide-area-loading');
+      }
+    });
+  };
+
+  slideArea.classList.add('slide-area-loading');
+  slideImage.addEventListener('load', completeRender, { once: true });
+  slideImage.addEventListener('error', completeRender, { once: true });
+  slideImage.src = getSlideSrc(slideNumber);
+  slideImage.alt = `スライド ${slideNumber}`;
+
+  if (slideImage.complete && slideImage.naturalWidth > 0) {
+    completeRender();
+  }
+
+  return;
   slideImage.src = getSlideSrc(slideNumber);
   slideImage.alt = `スライド ${slideNumber}`;
 
