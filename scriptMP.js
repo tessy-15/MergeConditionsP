@@ -76,7 +76,7 @@ const personIconTargets = [
 ];
 
 const photoFrameLayouts = {
-  8: { face: 'face-01.png', left: 11.8, top: 31.6, width: 15.3, height: 27.2 }
+  8: { face: 'face-01.png', left: 10.9, top: 31.6, width: 17.2, height: 27.2, className: 'photo-frame-image-wide' }
 };
 
 const photoCleanSlideNumbers = new Set([...Object.keys(photoFrameLayouts).map(Number), 34]);
@@ -224,7 +224,7 @@ const qualityRegions = {
 
 const slideTextMasks = {
   1: [{ left: 9.3, top: 15.0, width: 66.5, height: 5.4 }],
-  8: [{ left: 19.5, top: 84.7, width: 69.5, height: 5.0, className: 'slide-small-instruction', text: '内容を理解したら、次ページに進んでください。' }],
+  8: [{ left: 19.5, top: 89.0, width: 69.5, height: 5.0, className: 'slide-small-instruction', text: '内容を理解したら、次ページに進んでください。' }],
   12: [
     { left: 71.3, top: 78.5, width: 15.2, height: 7.4, className: 'slide-button-frame' },
     { left: 25.6, top: 87.5, width: 53.0, height: 7.0, className: 'slide-text-mask' },
@@ -626,7 +626,7 @@ function renderPersonControls() {
     button.setAttribute('aria-label', `人物 ${index + 1} の吹き出しを表示`);
     button.addEventListener('click', () => {
       selectedPersonSlide = null;
-      selectedPersonDetailSrc = `assets/person-details/スライド${target.detailSlide}.PNG?v=face-ratio-20260807`;
+      selectedPersonDetailSrc = `assets/person-details/スライド${target.detailSlide}.PNG?v=selected-face-widen-20260831`;
       renderPersonControls();
       renderPhotoFrameEditor();
     });
@@ -678,8 +678,8 @@ function renderPhotoFrameEditor() {
   frame.style.width = `${layout.width}%`;
   frame.style.height = `${layout.height}%`;
 
-  image.className = 'photo-frame-image';
-  image.src = `assets/faces/${layout.face}`;
+  image.className = `photo-frame-image ${layout.className ?? ''}`.trim();
+  image.src = `assets/faces/${layout.face}?v=sato-face-file-widen-20260831`;
   image.alt = '';
 
   frame.prepend(image);

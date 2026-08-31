@@ -511,12 +511,17 @@ button {
   border: 1px solid #1f2937;
   background: #ffffff;
   pointer-events: none;
+  overflow: hidden;
 }
 
 .photo-frame-image {
   width: 100%;
   height: 100%;
   display: block;
+  object-fit: cover;
+}
+
+.photo-frame-image-wide {
   object-fit: cover;
 }
 
