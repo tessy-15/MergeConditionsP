@@ -228,9 +228,22 @@ const slideTextMasks = {
   1: [{ left: 9.3, top: 15.0, width: 66.5, height: 5.4 }],
   8: [{ left: 19.5, top: 89.0, width: 69.5, height: 5.0, className: 'slide-small-instruction', text: '内容を理解したら、次ページに進んでください。' }],
   12: [
-    { left: 71.3, top: 78.5, width: 15.2, height: 7.4, className: 'slide-button-frame' },
-    { left: 25.6, top: 87.5, width: 53.0, height: 7.0, className: 'slide-text-mask' },
-    { left: 25.6, top: 87.5, width: 53.0, height: 7.0, className: 'slide-replacement-text', text: 'クリックし質問ページに進んで下さい。' }
+    { left: 9.0, top: 22.8, width: 75.0, height: 75.8, className: 'slide-text-mask' },
+    { left: 84.0, top: 22.8, width: 7.8, height: 60.4, className: 'slide-text-mask' },
+    { left: 84.0, top: 90.0, width: 7.8, height: 8.6, className: 'slide-text-mask' },
+    { left: 90.45, top: 83.45, width: 0.38, height: 1.55, className: 'slide-text-mask' },
+    {
+      left: 15.0,
+      top: 25.8,
+      width: 71.4,
+      height: 66.0,
+      className: 'slide-info-card',
+      html: `
+        <p>この4月20日（月）の緊急地震速報を受けた住民358名の行動を調査した結果を次ページに示します。</p>
+        <p>防護行動をした人としなかった人の割合が示されており、加えて、<span class="slide-info-emphasis">グラフ中の丸いアイコンをクリックすると個人の行動記録が表示されます。</span></p>
+        <p>自由に丸いアイコンをクリックして「おおむね住民の行動が把握できた」と納得できたら、<span class="slide-info-button-label">確認終了</span>ボタンをクリックし質問ページに進んで下さい。</p>
+      `
+    }
   ]
 };
 
@@ -381,7 +394,9 @@ function renderSlideTextMasks() {
     element.style.top = `${mask.top}%`;
     element.style.width = `${mask.width}%`;
     element.style.height = `${mask.height}%`;
-    if (mask.text) {
+    if (mask.html) {
+      element.innerHTML = mask.html;
+    } else if (mask.text) {
       element.textContent = mask.text;
     }
     qualityOverlay.append(element);
