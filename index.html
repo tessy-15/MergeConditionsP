@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MergeConditionsP</title>
+    <link rel="stylesheet" href="styleMP.css?v=person-face-ratio-20260807" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <div class="progress" aria-label="進捗">
+        <div id="progressBar" class="progress-bar"></div>
+      </div>
+
+      <main class="viewer">
+        <section class="slide-area" id="slideArea">
+          <div id="personOverlay" class="person-overlay hidden">
+            <img id="personDetailImage" class="person-detail-image" alt="" />
+            <div id="personButtons" class="person-buttons"></div>
+          </div>
+          <svg class="filter-defs" aria-hidden="true" focusable="false">
+            <filter id="tableSharpen">
+              <feConvolveMatrix
+                order="3"
+                kernelMatrix="0 -0.35 0 -0.35 2.4 -0.35 0 -0.35 0"
+                preserveAlpha="true"
+              />
+            </filter>
+          </svg>
+          <div id="qualityOverlay" class="quality-overlay hidden"></div>
+          <div id="questionPageOverlay" class="question-page-overlay hidden"></div>
+          <div id="photoFrameOverlay" class="photo-frame-overlay hidden"></div>
+          <div id="scaleTableOverlay" class="scale-table-overlay hidden"></div>
+          <div id="validationOverlay" class="validation-overlay hidden"></div>
+          <div id="radioOverlay" class="radio-overlay hidden"></div>
+          <div id="coverOverlay" class="cover-overlay hidden">
+            <div class="cover-slide-content">
+              <h1>緊急地震速報について</h1>
+              <p>この調査では緊急地震速報についてあなたのお考えをお尋ねします。</p>
+              <p>地震関連の画像や深刻な出来事を提示することはありませんが、地震に関連した調査ですので、連想等によって不快な気分になるかもしれません。</p>
+              <p>そのことを理解して上でご回答いただける方は<span>右下の矢印アイコン</span>をクリックして次ページにお進みください。</p>
+              <p>調査に参加しない場合はここで「調査辞退」をクリックしてください。</p>
+            </div>
+            <button id="coverNextButton" class="cover-next-button" type="button" aria-label="次のページへ進む"></button>
+            <button id="coverQuitButton" class="cover-quit-button" type="button">調査辞退</button>
+          </div>
+          <div id="backOverlay" class="back-overlay hidden">
+            <button id="backButton" class="back-button" type="button" aria-label="前のページに戻る"></button>
+          </div>
+          <div id="inputOverlay" class="input-overlay hidden">
+            <input id="genderInput" class="inline-input gender-input" type="text" placeholder="" />
+            <input id="ageInput" class="inline-input age-input" type="number" min="0" max="120" placeholder="" />
+            <button id="slide33NextButton" class="slide33-next-button" type="button" aria-label="次のページへ進む"></button>
+          </div>
+          <img id="slideImage" class="slide-image" alt="スライド" />
+          <div id="finishOverlay" class="finish-overlay hidden">
+            <button id="finishButton" class="finish-button" type="button">終了する</button>
+          </div>
+          <div class="counter" id="counter">1 / 19</div>
+        </section>
+      </main>
+    </div>
+
+    <script src="scriptMP.js?v=person-face-ratio-20260807"></script>
+  </body>
+</html>
