@@ -200,21 +200,27 @@ button {
   outline: none;
 }
 
-.cover-quit-button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 0;
-  height: 1.55em;
-  margin: 0 0.08em;
-  padding: 0 0.35em;
-  border: 2px solid #111111;
-  background: #ffffff;
-  color: #111111;
+.cover-quit-inline {
+  position: relative;
+  display: inline-block;
+  line-height: 1;
+}
+
+.cover-quit-text {
+  display: inline-block;
+  padding: 0.08em 0.32em;
   font: inherit;
   font-weight: 700;
-  line-height: 1;
-  vertical-align: middle;
+  line-height: 1.2;
+}
+
+.cover-quit-button {
+  position: absolute;
+  inset: 0;
+  border: 2px solid #111111;
+  background: transparent;
+  color: transparent;
+  padding: 0;
   cursor: pointer;
 }
 
