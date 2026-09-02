@@ -37,12 +37,75 @@ let selectedPersonSlide = null;
 let selectedPersonDetailSrc = null;
 let pendingWarningSlide = null;
 let slideRenderToken = 0;
+let startedAt = null;
+let participantId = null;
+let surveySubmitted = false;
+let surveySubmitting = false;
 
 function getCurrentSlideNumber() {
   return activeSlideNumbers[currentIndex];
 }
 
+function createParticipantId() {
+  if (window.crypto?.randomUUID) {
+    return crypto.randomUUID();
+  }
+
+  return `participant-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+}
+
+function recordSurveyStart() {
+  const shouldLog = startedAt === null || participantId === null;
+
+  if (startedAt === null) {
+    startedAt = new Date().toISOString();
+  }
+
+  if (participantId === null) {
+    participantId = createParticipantId();
+  }
+
+  if (shouldLog) {
+    console.log('開始日時:', startedAt);
+    console.log('回答者ID:', participantId);
+  }
+}
+
 const editedSlideNumbers = new Set([8]);
+
+const answerEntryMappings = [
+  ['2-0', 'entry.1168670168'],
+  ['2-1', 'entry.930950863'],
+  ['2-2', 'entry.816492538'],
+  ['3-0', 'entry.1968519439'],
+  ['3-1', 'entry.1120300605'],
+  ['3-2', 'entry.683734315'],
+  ['4-0', 'entry.540573799'],
+  ['4-1', 'entry.2051434229'],
+  ['4-2', 'entry.2076449763'],
+  ['5-0', 'entry.1834392905'],
+  ['5-1', 'entry.1776681809'],
+  ['5-2', 'entry.1605733630'],
+  ['6-0', 'entry.1728229730'],
+  ['9-0', 'entry.1393370204'],
+  ['9-1', 'entry.1105094308'],
+  ['9-2', 'entry.1634414582'],
+  ['10-0', 'entry.1903535500'],
+  ['10-1', 'entry.741852177'],
+  ['10-2', 'entry.928471055'],
+  ['11-0', 'entry.1383419596'],
+  ['11-1', 'entry.426644094'],
+  ['11-2', 'entry.2062870814'],
+  ['30-0', 'entry.526678526'],
+  ['30-1', 'entry.1057518406'],
+  ['30-2', 'entry.1183275702'],
+  ['31-0', 'entry.214350863'],
+  ['31-1', 'entry.1503682303'],
+  ['31-2', 'entry.466301198'],
+  ['32-0', 'entry.380387926'],
+  ['32-1', 'entry.860349186'],
+  ['32-2', 'entry.1861521294']
+];
 
 const scaleLayouts = {
   2: { cols: [58.7, 64.1, 69.5, 74.8, 80.2], rows: [74.3, 81.0, 87.6], frameLeft: 21.1 },
@@ -1155,6 +1218,7 @@ slide33NextButton.addEventListener('click', (event) => {
 coverNextButton.addEventListener('click', (event) => {
   event.preventDefault();
   event.stopPropagation();
+  recordSurveyStart();
   showNext();
 });
 
@@ -1164,10 +1228,22 @@ coverQuitButton.addEventListener('click', (event) => {
   finishSite({ closeWindow: false });
 });
 
-finishButton.addEventListener('click', (event) => {
+finishButton.addEventListener('click', async (event) => {
   event.preventDefault();
   event.stopPropagation();
-  finishSite();
+  if (surveySubmitting) {
+    return;
+  }
+
+  try {
+    surveySubmitting = true;
+    finishButton.disabled = true;
+    await submitSurveyToGoogleForm();
+  } finally {
+    surveySubmitting = false;
+    finishButton.disabled = false;
+    finishSite({ closeWindow: false });
+  }
 });
 
 function finishSite({ closeWindow = true } = {}) {
@@ -1181,3 +1257,46 @@ slideImage.addEventListener('load', updateOverlayMetrics);
 window.addEventListener('resize', updateOverlayMetrics);
 
 updateSlide();
+
+async function submitSurveyToGoogleForm() {
+  if (surveySubmitted) {
+    return;
+  }
+
+  if (startedAt === null || participantId === null) {
+    recordSurveyStart();
+  }
+
+  const formData = new FormData();
+
+  formData.append("entry.2073436287", startedAt);
+  formData.append("entry.667652200", participantId);
+  formData.append("entry.1325903696", genderInput.value);
+  formData.append("entry.321566609", ageInput.value);
+
+  answerEntryMappings.forEach(([answerKey, entryId]) => {
+    formData.append(entryId, scaleAnswers[answerKey] ?? "");
+  });
+
+  console.log("アンケートデータ送信", {
+    startedAt,
+    participantId,
+    gender: genderInput.value,
+    age: ageInput.value,
+    answers: scaleAnswers
+  });
+
+  try {
+    await fetch(
+      "https://docs.google.com/forms/d/e/1FAIpQLSchB9nmlY__QcMBZkckOcxX20OEl3zY1hKIsworZuuCrdnlRA/formResponse",
+      {
+        method: "POST",
+        mode: "no-cors",
+        body: formData
+      }
+    );
+    surveySubmitted = true;
+  } catch (error) {
+    console.error('アンケートデータのGoogleフォーム送信に失敗しました', error);
+  }
+}
