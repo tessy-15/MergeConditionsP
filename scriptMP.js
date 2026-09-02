@@ -41,6 +41,29 @@ let startedAt = null;
 let participantId = null;
 let surveySubmitted = false;
 let surveySubmitting = false;
+let currentCaseId = null;
+let currentCaseStart = null;
+
+const caseViewEvents = [];
+
+const caseViewTotals = {
+  protective_1: 0,
+  protective_2: 0,
+  protective_3: 0,
+  protective_4: 0,
+  protective_5: 0,
+  protective_6: 0,
+  protective_7: 0,
+  protective_8: 0,
+  nonprotective_1: 0,
+  nonprotective_2: 0,
+  nonprotective_3: 0,
+  nonprotective_4: 0,
+  nonprotective_5: 0,
+  nonprotective_6: 0,
+  nonprotective_7: 0,
+  nonprotective_8: 0
+};
 
 function getCurrentSlideNumber() {
   return activeSlideNumbers[currentIndex];
@@ -106,6 +129,54 @@ const answerEntryMappings = [
   ['32-1', 'entry.860349186'],
   ['32-2', 'entry.1861521294']
 ];
+
+const caseTotalEntryMappings = [
+  ['protective_1', 'entry.538489199'],
+  ['protective_2', 'entry.158975898'],
+  ['protective_3', 'entry.222885980'],
+  ['protective_4', 'entry.947668626'],
+  ['protective_5', 'entry.150920397'],
+  ['protective_6', 'entry.346180124'],
+  ['protective_7', 'entry.171776858'],
+  ['protective_8', 'entry.113414696'],
+  ['nonprotective_1', 'entry.297051509'],
+  ['nonprotective_2', 'entry.410074196'],
+  ['nonprotective_3', 'entry.1315581828'],
+  ['nonprotective_4', 'entry.355423620'],
+  ['nonprotective_5', 'entry.539260063'],
+  ['nonprotective_6', 'entry.1620541261'],
+  ['nonprotective_7', 'entry.269853806'],
+  ['nonprotective_8', 'entry.843228163']
+];
+
+function getCaseId(index) {
+  if (index < 8) {
+    return `protective_${index + 1}`;
+  }
+
+  return `nonprotective_${index - 7}`;
+}
+
+function finalizeCurrentCaseView() {
+  if (currentCaseId === null || currentCaseStart === null) {
+    return;
+  }
+
+  const durationMs = Math.max(0, Math.round(performance.now() - currentCaseStart));
+  caseViewEvents.push({
+    case: currentCaseId,
+    time: durationMs
+  });
+  caseViewTotals[currentCaseId] += durationMs;
+  currentCaseId = null;
+  currentCaseStart = null;
+}
+
+function startCaseView(caseId) {
+  finalizeCurrentCaseView();
+  currentCaseId = caseId;
+  currentCaseStart = performance.now();
+}
 
 const scaleLayouts = {
   2: { cols: [58.7, 64.1, 69.5, 74.8, 80.2], rows: [74.3, 81.0, 87.6], frameLeft: 21.1 },
@@ -759,6 +830,7 @@ function renderPersonControls() {
     button.style.top = `${target.top}%`;
     button.setAttribute('aria-label', `人物 ${index + 1} の吹き出しを表示`);
     button.addEventListener('click', () => {
+      startCaseView(getCaseId(index));
       selectedPersonSlide = null;
       selectedPersonDetailSrc = `assets/person-details/スライド${target.detailSlide}.PNG?v=tanaka-face-widen-20260831`;
       renderPersonControls();
@@ -1135,11 +1207,19 @@ function showNext() {
     return;
   }
 
+  if (getCurrentSlideNumber() === 13) {
+    finalizeCurrentCaseView();
+  }
+
   currentIndex += 1;
   updateSlide();
 }
 
 function showPrevious() {
+  if (getCurrentSlideNumber() === 13) {
+    finalizeCurrentCaseView();
+  }
+
   currentIndex = (currentIndex - 1 + slideFiles.length) % slideFiles.length;
   updateSlide();
 }
@@ -1267,7 +1347,11 @@ async function submitSurveyToGoogleForm() {
     recordSurveyStart();
   }
 
+  finalizeCurrentCaseView();
+
   const formData = new FormData();
+  const buttonOrder = caseViewEvents.map((event) => event.case).join(" | ");
+  const buttonViewTimes = caseViewEvents.map((event) => event.time).join(" | ");
 
   formData.append("entry.2073436287", startedAt);
   formData.append("entry.667652200", participantId);
@@ -1278,12 +1362,22 @@ async function submitSurveyToGoogleForm() {
     formData.append(entryId, scaleAnswers[answerKey] ?? "");
   });
 
+  formData.append("entry.1548578805", buttonOrder);
+  formData.append("entry.216872327", buttonViewTimes);
+
+  caseTotalEntryMappings.forEach(([caseId, entryId]) => {
+    formData.append(entryId, String(caseViewTotals[caseId] ?? 0));
+  });
+
   console.log("アンケートデータ送信", {
     startedAt,
     participantId,
     gender: genderInput.value,
     age: ageInput.value,
-    answers: scaleAnswers
+    answers: scaleAnswers,
+    buttonOrder,
+    buttonViewTimes,
+    caseViewTotals
   });
 
   try {
