@@ -40,6 +40,8 @@ let slideRenderToken = 0;
 let startedAt = null;
 let participantId = null;
 let surveySubmitted = false;
+const params = new URLSearchParams(window.location.search);
+const isTest = params.get("test") === "1" ? "1" : "0";
 let surveySubmitting = false;
 let currentCaseId = null;
 let currentCaseStart = null;
@@ -1357,6 +1359,7 @@ async function submitSurveyToGoogleForm() {
   formData.append("entry.667652200", participantId);
   formData.append("entry.1325903696", genderInput.value);
   formData.append("entry.321566609", ageInput.value);
+  formData.append("entry.945682249", isTest);
 
   answerEntryMappings.forEach(([answerKey, entryId]) => {
     formData.append(entryId, scaleAnswers[answerKey] ?? "");
