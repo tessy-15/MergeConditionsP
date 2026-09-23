@@ -35,6 +35,7 @@ let currentIndex = 0;
 const scaleAnswers = {};
 let selectedPersonSlide = null;
 let selectedPersonDetailSrc = null;
+let personDetailRenderToken = 0;
 let pendingWarningSlide = null;
 let slideRenderToken = 0;
 let startedAt = null;
@@ -811,17 +812,30 @@ function renderPersonControls() {
   personOverlay.classList.toggle('hidden', !isPersonGraphSlide);
 
   if (!isPersonGraphSlide) {
+    personDetailRenderToken += 1;
     selectedPersonSlide = null;
     selectedPersonDetailSrc = null;
+    personDetailImage.classList.add('hidden');
     personDetailImage.removeAttribute('src');
     personDetailImage.alt = '';
     return;
   }
 
-  personDetailImage.classList.toggle('hidden', selectedPersonDetailSrc === null);
-  if (selectedPersonDetailSrc !== null) {
+  if (selectedPersonDetailSrc === null) {
+    personDetailImage.classList.add('hidden');
+  } else if (personDetailImage.getAttribute('src') !== selectedPersonDetailSrc) {
+    const renderToken = ++personDetailRenderToken;
+    // Hide the old bitmap and its CSS margins until the new image is decoded.
+    personDetailImage.classList.add('hidden');
     personDetailImage.src = selectedPersonDetailSrc;
     personDetailImage.alt = '人物の吹き出し';
+    personDetailImage.decode().then(() => {
+      if (renderToken === personDetailRenderToken && getCurrentSlideNumber() === 13) {
+        personDetailImage.classList.remove('hidden');
+      }
+    }).catch(() => {
+      // Keep failed or superseded image requests hidden.
+    });
   }
 
   personIconTargets.forEach((target, index) => {
