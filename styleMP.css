@@ -332,6 +332,101 @@ button {
   display: none;
 }
 
+/* Restore the gray speech-bubble area outside each existing photo frame. */
+.person-overlay:has(.person-detail-image:not(.hidden)[src])::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: var(--person-photo-margin) center / 100% 100% no-repeat;
+  pointer-events: none;
+}
+
+.person-overlay:has(.person-detail-image[src*="14.PNG"]) {
+  --person-photo-margin: url("assets/person-photo-margins.svg#person-14");
+}
+
+.person-overlay:has(.person-detail-image[src*="15.PNG"]) {
+  --person-photo-margin: url("assets/person-photo-margins.svg#person-15");
+}
+
+.person-overlay:has(.person-detail-image[src*="16.PNG"]) {
+  --person-photo-margin: url("assets/person-photo-margins.svg#person-16");
+}
+
+.person-overlay:has(.person-detail-image[src*="17.PNG"]) {
+  --person-photo-margin: url("assets/person-photo-margins.svg#person-17");
+}
+
+.person-overlay:has(.person-detail-image[src*="18.PNG"]) {
+  --person-photo-margin: url("assets/person-photo-margins.svg#person-18");
+}
+
+.person-overlay:has(.person-detail-image[src*="19.PNG"]) {
+  --person-photo-margin: url("assets/person-photo-margins.svg#person-19");
+}
+
+.person-overlay:has(.person-detail-image[src*="20.PNG"]) {
+  --person-photo-margin: url("assets/person-photo-margins.svg#person-20");
+}
+
+.person-overlay:has(.person-detail-image[src*="21.PNG"]) {
+  --person-photo-margin: url("assets/person-photo-margins.svg#person-21");
+}
+
+.person-overlay:has(.person-detail-image[src*="22.PNG"]) {
+  --person-photo-margin: url("assets/person-photo-margins.svg#person-22");
+}
+
+.person-overlay:has(.person-detail-image[src*="23.PNG"]) {
+  --person-photo-margin: url("assets/person-photo-margins.svg#person-23");
+}
+
+.person-overlay:has(.person-detail-image[src*="24.PNG"]) {
+  --person-photo-margin: url("assets/person-photo-margins.svg#person-24");
+}
+
+.person-overlay:has(.person-detail-image[src*="25.PNG"]) {
+  --person-photo-margin: url("assets/person-photo-margins.svg#person-25");
+}
+
+.person-overlay:has(.person-detail-image[src*="26.PNG"]) {
+  --person-photo-margin: url("assets/person-photo-margins.svg#person-26");
+}
+
+.person-overlay:has(.person-detail-image[src*="27.PNG"]) {
+  --person-photo-margin: url("assets/person-photo-margins.svg#person-27");
+}
+
+.person-overlay:has(.person-detail-image[src*="28.PNG"]) {
+  --person-photo-margin: url("assets/person-photo-margins.svg#person-28");
+}
+
+.person-overlay:has(.person-detail-image[src*="29.PNG"]) {
+  --person-photo-margin: url("assets/person-photo-margins.svg#person-29");
+}
+
+/* Hide leftover photo-frame lines only for Sasaki (25) and Kimura (29). */
+.person-overlay:has(.person-detail-image:not(.hidden)[src*="25.PNG"])::after,
+.person-overlay:has(.person-detail-image:not(.hidden)[src*="29.PNG"])::after {
+  content: "";
+  position: absolute;
+  left: calc(213 / 1280 * 100%);
+  width: calc(124 / 1280 * 100%);
+  background: #ffffff;
+  pointer-events: none;
+}
+
+.person-overlay:has(.person-detail-image:not(.hidden)[src*="25.PNG"])::after {
+  top: calc(400 / 720 * 100%);
+  height: calc(4 / 720 * 100%);
+}
+
+.person-overlay:has(.person-detail-image:not(.hidden)[src*="29.PNG"])::after {
+  top: calc(518 / 720 * 100%);
+  height: calc(3 / 720 * 100%);
+}
+
 .person-buttons {
   position: absolute;
   inset: 0;
@@ -704,7 +799,7 @@ button {
   pointer-events: auto;
 }
 
-.html-next-button:hover,
+.slide-area.forward-button-hover .html-next-button,
 .html-next-button:focus-visible {
   transform: scale(1.04);
   outline: none;
@@ -866,6 +961,28 @@ button {
   outline: none;
 }
 
+.image-next-arrow-hover,
+.image-confirm-hover {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.image-next-arrow-hover {
+  clip-path: polygon(0 23%, 66% 23%, 66% 0, 100% 50%, 66% 100%, 66% 76%, 0 76%);
+}
+
+.slide-area.forward-button-hover .image-next-arrow-hover {
+  opacity: 1;
+  transform: scale(1.04);
+}
+
+.slide-area.confirm-button-hover .image-confirm-hover {
+  opacity: 1;
+  outline: 2px solid rgba(37, 99, 235, 0.35);
+  outline-offset: 2px;
+}
+
 .finish-button {
   position: absolute;
   right: 3.5%;
@@ -1023,7 +1140,7 @@ button {
   cursor: pointer;
 }
 
-.slide33-next-button:hover,
+.slide-area.forward-button-hover .slide33-next-button,
 .slide33-next-button:focus-visible {
   transform: scale(1.06);
   outline: none;

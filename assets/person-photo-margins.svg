@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" preserveAspectRatio="none">
+  <!-- Display-only repairs around the existing portraits. Photo/frame rectangles are excluded. -->
+  <style>.person-margin { display: none; } .person-margin:target { display: inline; }</style>
+  <g id="person-14" class="person-margin">
+    <clipPath id="margin-14"><path d="M252 372H368V506H252Z M253 382V496H367V382Z" clip-rule="evenodd"/></clipPath>
+    <g clip-path="url(#margin-14)" fill="#ededed" stroke="#172c51" stroke-width="1">
+      <rect x="242.5" y="409.5" width="816" height="267" rx="44.5"/>
+      <path d="M297.5 271.5L378.5 409.5H583.5Z"/>
+    </g>
+  </g>
+  <g id="person-15" class="person-margin">
+    <clipPath id="margin-15"><path d="M192 374H308V508H192Z M193 383V497H307V383Z" clip-rule="evenodd"/></clipPath>
+    <g clip-path="url(#margin-15)" fill="#ededed" stroke="#172c51" stroke-width="1">
+      <rect x="186.5" y="415.5" width="816" height="267" rx="44.5"/>
+    </g>
+  </g>
+  <g id="person-16" class="person-margin">
+    <clipPath id="margin-16"><path d="M196 366H344V509H196Z M204 380V493H332V380Z" clip-rule="evenodd"/></clipPath>
+    <g clip-path="url(#margin-16)" fill="#ededed" stroke="#172c51" stroke-width="1">
+      <rect x="251.5" y="414.5" width="801" height="267" rx="44.5"/>
+    </g>
+  </g>
+  <g id="person-17" class="person-margin">
+    <clipPath id="margin-17"><path d="M162 364H292V504H162Z M164 375V489H291V375Z" clip-rule="evenodd"/></clipPath>
+    <g clip-path="url(#margin-17)" fill="#ededed" stroke="#172c51" stroke-width="1">
+      <rect x="197.5" y="407.5" width="801" height="267" rx="44.5"/>
+    </g>
+  </g>
+  <g id="person-18" class="person-margin">
+    <!-- Restore the graph behind the white margin above this portrait. -->
+    <rect x="187" y="353" width="112" height="6" fill="#e2f0d9"/>
+    <path d="M185 353h2v6h112v2H185Z" fill="#172c51"/>
+    <clipPath id="margin-18"><path d="M182 352H300V493H182Z M184 365V479H296V365Z" clip-rule="evenodd"/></clipPath>
+    <g clip-path="url(#margin-18)" fill="#ededed" stroke="#172c51" stroke-width="1">
+      <rect x="207.5" y="423.5" width="813" height="267" rx="44.5"/>
+    </g>
+  </g>
+  <g id="person-19" class="person-margin">
+    <!-- Restore the graph behind the white margin above this portrait. -->
+    <rect x="243" y="356" width="117" height="3" fill="#e2f0d9"/>
+    <rect x="243" y="359" width="117" height="2" fill="#172c51"/>
+    <clipPath id="margin-19"><path d="M236 355H366V501H236Z M238 371V485H365V371Z" clip-rule="evenodd"/></clipPath>
+    <g clip-path="url(#margin-19)" fill="#ededed" stroke="#172c51" stroke-width="1">
+      <rect x="275.5" y="403.5" width="813" height="267" rx="44.5"/>
+    </g>
+  </g>
+  <g id="person-20" class="person-margin">
+    <clipPath id="margin-20"><path d="M195 374H325V512H195Z M197 384V498H324V384Z" clip-rule="evenodd"/></clipPath>
+    <g clip-path="url(#margin-20)" fill="#ededed" stroke="#172c51" stroke-width="1">
+      <rect x="207.5" y="411.5" width="813" height="267" rx="44.5"/>
+    </g>
+  </g>
+  <g id="person-21" class="person-margin">
+    <clipPath id="margin-21"><path d="M144 373H280V536H144Z M147 396V510H273V396Z" clip-rule="evenodd"/></clipPath>
+    <g clip-path="url(#margin-21)" fill="#ededed" stroke="#172c51" stroke-width="1">
+      <rect x="165.5" y="412.5" width="813" height="267" rx="44.5"/>
+    </g>
+  </g>
+  <g id="person-22" class="person-margin">
+    <clipPath id="margin-22"><path d="M206 392H336V521H206Z M208 398V512H335V398Z" clip-rule="evenodd"/></clipPath>
+    <g clip-path="url(#margin-22)" fill="#ededed" stroke="#172c51" stroke-width="1">
+      <rect x="207.5" y="412.5" width="813" height="267" rx="44.5"/>
+    </g>
+  </g>
+  <g id="person-23" class="person-margin">
+    <clipPath id="margin-23"><path d="M128 366H258V494H128Z M129 371V485H257V371Z" clip-rule="evenodd"/></clipPath>
+    <g clip-path="url(#margin-23)" fill="#ededed" stroke="#172c51" stroke-width="1">
+      <rect x="123.5" y="401.5" width="813" height="267" rx="44.5"/>
+    </g>
+  </g>
+  <g id="person-24" class="person-margin">
+    <!-- Restore the graph behind the white margin above this portrait. -->
+    <rect x="205" y="357" width="99" height="2" fill="#e2f0d9"/>
+    <rect x="205" y="359" width="99" height="2" fill="#172c51"/>
+    <clipPath id="margin-24"><path d="M196 356H312V485H196Z M197 363V477H311V363Z" clip-rule="evenodd"/></clipPath>
+    <g clip-path="url(#margin-24)" fill="#ededed" stroke="#172c51" stroke-width="1">
+      <rect x="196.5" y="391.5" width="813" height="267" rx="44.5"/>
+    </g>
+  </g>
+  <g id="person-25" class="person-margin">
+    <clipPath id="margin-25"><path d="M210 390H340V524H210Z M212 398V512H338V398Z" clip-rule="evenodd"/></clipPath>
+    <g clip-path="url(#margin-25)" fill="#ededed" stroke="#172c51" stroke-width="1">
+      <rect x="222.5" y="410.5" width="813" height="267" rx="44.5"/>
+    </g>
+  </g>
+  <g id="person-26" class="person-margin">
+    <!-- Restore the graph behind the white margin above this portrait. -->
+    <rect x="308" y="358" width="111" height="1" fill="#e2f0d9"/>
+    <rect x="308" y="359" width="111" height="2" fill="#172c51"/>
+    <clipPath id="margin-26"><path d="M306 357H422V489H306Z M307 366V480H421V366Z" clip-rule="evenodd"/></clipPath>
+    <g clip-path="url(#margin-26)" fill="#ededed" stroke="#172c51" stroke-width="1">
+      <rect x="290.5" y="393.5" width="813" height="267" rx="44.5"/>
+    </g>
+  </g>
+  <g id="person-27" class="person-margin">
+    <clipPath id="margin-27"><path d="M246 364H362V495H246Z M247 371V485H361V371Z" clip-rule="evenodd"/></clipPath>
+    <g clip-path="url(#margin-27)" fill="#ededed" stroke="#172c51" stroke-width="1">
+      <rect x="242.5" y="393.5" width="813" height="267" rx="44.5"/>
+    </g>
+  </g>
+  <g id="person-28" class="person-margin">
+    <clipPath id="margin-28"><path d="M144 364H262V499H144Z M146 373V487H258V373Z" clip-rule="evenodd"/></clipPath>
+    <g clip-path="url(#margin-28)" fill="#ededed" stroke="#172c51" stroke-width="1">
+      <rect x="164.5" y="402.5" width="813" height="267" rx="44.5"/>
+    </g>
+  </g>
+  <g id="person-29" class="person-margin">
+    <clipPath id="margin-29"><path d="M210 401H340V534H210Z M212 409V523H339V409Z" clip-rule="evenodd"/></clipPath>
+    <g clip-path="url(#margin-29)" fill="#ededed" stroke="#172c51" stroke-width="1">
+      <rect x="234.5" y="409.5" width="813" height="267" rx="44.5"/>
+    </g>
+  </g>
+</svg>

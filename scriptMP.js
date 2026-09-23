@@ -1135,6 +1135,32 @@ function renderScaleControls() {
   });
 }
 
+function renderImageNavigationHover(slideNumber) {
+  const isArrow = [1, 7, 8, 12].includes(slideNumber);
+  if (!isArrow && slideNumber !== 13) {
+    return;
+  }
+
+  // Display-only overlays; clicks still use the existing slide-area handler.
+  const region = isArrow
+    ? { left: 1130 / 1280 * 100, top: 600 / 720 * 100, width: 85 / 1280 * 100, height: 56 / 720 * 100 }
+    : { left: 1083 / 1280 * 100, top: 644 / 720 * 100, width: 155 / 1280 * 100, height: 50 / 720 * 100 };
+  const overlay = document.createElement('div');
+  overlay.className = isArrow ? 'image-next-arrow-hover' : 'image-confirm-hover';
+  overlay.setAttribute('aria-hidden', 'true');
+  overlay.style.left = `${region.left}%`;
+  overlay.style.top = `${region.top}%`;
+  overlay.style.width = `${region.width}%`;
+  overlay.style.height = `${region.height}%`;
+  if (isArrow) {
+    overlay.style.backgroundImage = `url("${slideImage.currentSrc || slideImage.src}")`;
+    overlay.style.backgroundSize = `${10000 / region.width}% ${10000 / region.height}%`;
+    overlay.style.backgroundPosition = `${region.left / (100 - region.width) * 100}% ${region.top / (100 - region.height) * 100}%`;
+  }
+  qualityOverlay.append(overlay);
+  qualityOverlay.classList.remove('hidden');
+}
+
 function renderSlideLayers(slideNumber) {
   counter.textContent = `${currentIndex + 1} / ${slideFiles.length}`;
   progressBar.style.width = `${((currentIndex + 1) / slideFiles.length) * 100}%`;
@@ -1146,6 +1172,7 @@ function renderSlideLayers(slideNumber) {
   renderQuestionPage();
   renderPhotoFrameEditor();
   renderSlideTextMasks();
+  renderImageNavigationHover(slideNumber);
   scaleTableOverlay.replaceChildren();
   scaleTableOverlay.classList.add('hidden');
   renderScaleControls();
@@ -1235,8 +1262,21 @@ function isForwardButtonPoint(event) {
     return false;
   }
 
-  return x >= 0.82 && x <= 0.99 && y >= 0.80 && y <= 0.99;
+  return x >= 0.875 && x <= 0.96 && y >= 0.82 && y <= 0.925;
 }
+
+slideArea.addEventListener('mousemove', (event) => {
+  slideArea.classList.toggle('forward-button-hover', isForwardButtonPoint(event));
+  const confirmOverlay = qualityOverlay.querySelector('.image-confirm-hover');
+  const rect = confirmOverlay?.getBoundingClientRect();
+  slideArea.classList.toggle('confirm-button-hover', Boolean(rect
+    && event.clientX >= rect.left && event.clientX <= rect.right
+    && event.clientY >= rect.top && event.clientY <= rect.bottom));
+});
+
+slideArea.addEventListener('mouseleave', () => {
+  slideArea.classList.remove('forward-button-hover', 'confirm-button-hover');
+});
 
 slideArea.addEventListener('click', (event) => {
   const target = event.target;
