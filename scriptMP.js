@@ -1276,6 +1276,12 @@ function isForwardButtonPoint(event) {
     return false;
   }
 
+  if (getCurrentSlideNumber() === 13) {
+    // Match the confirmation button's visible frame and hover region on p14.
+    return x >= 1083 / 1280 && x <= 1238 / 1280
+      && y >= 644 / 720 && y <= 694 / 720;
+  }
+
   return x >= 0.875 && x <= 0.96 && y >= 0.82 && y <= 0.925;
 }
 
