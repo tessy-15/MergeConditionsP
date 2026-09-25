@@ -367,13 +367,13 @@ const slideTextMasks = {
     {
       left: 158 / 1280 * 100, top: 85 / 720 * 100, width: 650 / 1280 * 100, height: 48 / 720 * 100,
       className: 'slide-text-mask',
-      html: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 48" width="100%" height="100%" style="display:block"><text x="6" y="39" fill="#000000" font-family="Yu Gothic, Yu Gothic UI, sans-serif" font-size="37.333333" font-weight="400">Sさん 宮城県在住 48歳 会社員 男性</text></svg>'
+      html: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 48" width="100%" height="100%" style="display:block"><text x="6" y="39" fill="#000000" font-family="Yu Gothic, Yu Gothic UI, sans-serif" font-size="37.333333" font-weight="400">佐藤さん 宮城県在住 48歳 会社員 男性</text></svg>'
     },
     {
       left: 452 / 1280 * 100, top: 184 / 720 * 100, width: 650 / 1280 * 100, height: 402 / 720 * 100,
       className: 'slide-text-mask',
       html: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 402" width="100%" height="100%" style="display:block;overflow:visible">
-        <text transform="translate(0 24)" fill="#000000" font-family="Yu Gothic, Yu Gothic UI, sans-serif" font-size="37.333333" font-weight="400"><tspan x="0" y="32">居間でテレビを見ていたら、突然、テ</tspan><tspan x="0" y="77">レビとスマホから緊急地震速報が流れ</tspan><tspan x="0" y="122">てきました。</tspan><tspan x="0" y="186" textLength="650" lengthAdjust="spacing">室内を確認しつつ、急いでテーブルの</tspan><tspan x="0" y="231" textLength="650" lengthAdjust="spacing">下にもぐったのですが、まさにその直</tspan><tspan x="0" y="276">後に大きな揺れがやってきました。</tspan><tspan x="0" y="344" textLength="665" lengthAdjust="spacing">緊急地震速報は役に立つと実感しました。</tspan></text>
+        <text transform="translate(0 24)" fill="#000000" font-family="Yu Gothic, Yu Gothic UI, sans-serif" font-size="37.333333" font-weight="400"><tspan x="0" y="32">居間でテレビを見ていたら、突然、テ</tspan><tspan x="0" y="77">レビとスマホから緊急地震速報が流れ</tspan><tspan x="0" y="122">てきました。</tspan><tspan x="0" y="186" textLength="650" lengthAdjust="spacing">室内を確認しつつ、急いでテーブルの</tspan><tspan x="0" y="231" textLength="650" lengthAdjust="spacing">下にもぐったのですが、まさにその直</tspan><tspan x="0" y="276">後に大きな揺れがやってきました。</tspan><tspan x="0" y="344" textLength="650" lengthAdjust="spacing">緊急地震速報は役に立つと実感しました。</tspan></text>
       </svg>`
     },
     { left: 19.5, top: 89.0, width: 69.5, height: 5.0, className: 'slide-small-instruction', text: '内容を理解したら、次ページに進んでください。' }
