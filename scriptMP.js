@@ -367,7 +367,7 @@ const slideTextMasks = {
     {
       left: 158 / 1280 * 100, top: 85 / 720 * 100, width: 650 / 1280 * 100, height: 48 / 720 * 100,
       className: 'slide-text-mask',
-      html: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 48" width="100%" height="100%" style="display:block"><text x="6" y="39" fill="#000000" font-family="Yu Gothic, Yu Gothic UI, sans-serif" font-size="37.333333" font-weight="400">佐藤さん 宮城県在住 48歳 会社員 男性</text></svg>'
+      html: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 48" width="100%" height="100%" style="display:block;overflow:visible"><text x="6" y="39" fill="#000000" font-family="Yu Gothic, Yu Gothic UI, sans-serif" font-size="37.333333" font-weight="400">佐藤さん 宮城県在住 48歳 会社員 男性</text></svg>'
     },
     {
       left: 452 / 1280 * 100, top: 184 / 720 * 100, width: 650 / 1280 * 100, height: 402 / 720 * 100,
